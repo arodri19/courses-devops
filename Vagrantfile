@@ -24,8 +24,13 @@ Vagrant.configure("2") do |config|
     ansible.vm.provision "shell", inline:"apt-get update && \
       apt install -y software-properties-common && \
       add-apt-repository --yes --update ppa:ansible/ansible && \
-      apt install -y ansible && \
-      ansible wordpress --private-key /vagrant/idbionic -i /vagrant/configs/ansible/hosts -m shell -a 'echo Hello, World'
+      apt install -y ansible
+      "
+
+      ansible.vm.provision "shell", inline:" \
+      ansible wordpress --private-key /vagrant/idbionic -i /vagrant/configs/ansible/hosts -m shell -a 'echo Hello, World' && \
+      ansible-playbook /vagrant/provisioning.yml -u vagrant -i /vagrant/configs/ansible/hosts --private-key /vagrant/idbionic && \
+      ansible-playbook /vagrant/provisioning.yml -i /vagrant/configs/ansible/hosts
       "
     ansible.vm.provider "virtualbox" do |ansible_provider|
       ansible_provider.name="ansible_machine"
