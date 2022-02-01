@@ -1,0 +1,1 @@
+ansible-playbook /vagrant/provisioning.yml -i /vagrant/configs/ansible/hosts

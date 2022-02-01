@@ -8,8 +8,18 @@ Vagrant.configure("2") do |config|
   config.vm.define "wordpress" do |wordpress|
     wordpress.vm.network "private_network", ip:"192.168.1.22"
     wordpress.vm.provision "shell", inline:"cat /vagrant/configs/idbionic.pub >> .ssh/authorized_keys"
+    wordpress.vm.provision "shell", inline:"apt-get update"
     wordpress.vm.provider "virtualbox" do |wordpress_provider|
       wordpress_provider.name="wordpress_machine"
+    end
+  end
+
+  config.vm.define "mysql" do |mysql|
+    mysql.vm.network "private_network", ip:"192.168.1.25"
+    mysql.vm.provision "shell", inline:"cat /vagrant/configs/idbionic.pub >> .ssh/authorized_keys"
+    mysql.vm.provision "shell", inline:"apt-get update"
+    mysql.vm.provider "virtualbox" do |mysql_provider|
+      mysql_provider.name="mysql_machine"
     end
   end
 
