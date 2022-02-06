@@ -14,14 +14,12 @@
     state: present
     host: "{{item}}"
   with_items:
-    - 'localhost'
-    - '127.0.0.1'
     - "{{wp_host_ip}}"
   become: yes
 
 - name: "Copiar arquivo mysqld.cnf"
   copy:
-    src: /vagrant/configs/mysqld.cnf
+    src: files/mysqld.cnf
     dest: /etc/mysql/mysql.conf.d/mysqld.cnf
     owner: root
     group: root
